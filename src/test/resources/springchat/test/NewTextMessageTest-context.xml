@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+  <bean id="newTextMessage" class="springchat.jms.NewTextMessage"/>
+  <bean id="connections" class="org.easymock.EasyMock" factory-method="createMock">
+    <constructor-arg type="java.lang.Class" value="springchat.service.ConnectionsService" />
+  </bean>
+  <bean id="messagesService" class="org.easymock.EasyMock" factory-method="createMock">
+    <constructor-arg type="java.lang.Class" value="springchat.service.MessagesService" />
+  </bean>
+</beans>

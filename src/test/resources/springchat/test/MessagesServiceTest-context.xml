@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+  <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
+    <property name="url" value="jdbc:hsqldb:mem:springchatdb"/>
+    <property name="username" value="sa"/>
+    <property name="password" value=""/>
+  </bean>
+
+  <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+    <property name="persistenceXmlLocation" value="classpath:/springchat/test/persistence.xml"/>
+    <property name="persistenceUnitName" value="chatPUTEST"/>
+    <property name="dataSource" ref="dataSource"/>
+  </bean>
+
+  <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+    <property name="entityManagerFactory" ref="entityManagerFactory"/>
+  </bean>
+  <tx:annotation-driven transaction-manager="transactionManager" />
+
+  <bean id="eao" class="springchat.service.BaseEAOImpl"/>
+  <bean id="messages" class="springchat.service.MessagesServiceImpl"/>
+  <bean id="jmsTemplate" class="org.easymock.EasyMock" factory-method="createMock">
+    <constructor-arg type="java.lang.Class" value="org.springframework.jms.core.JmsOperations" />
+  </bean>
+</beans>

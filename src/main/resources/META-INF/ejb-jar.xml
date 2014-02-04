@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ejb-jar xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd"
+         version="3.1">
+  <enterprise-beans>
+    <session>
+      <ejb-name>ManagedBean</ejb-name>
+      <ejb-class>springchat.ManagedBean</ejb-class>
+      <session-type>Stateless</session-type>
+      <init-on-startup>true</init-on-startup>
+      <resource-ref>
+        <res-ref-name>myJmsConnectionFactory</res-ref-name>
+        <res-type>javax.jms.ConnectionFactory</res-type>
+      </resource-ref>
+      <resource-ref>
+        <res-ref-name>NewTextMessageChannel</res-ref-name>
+        <res-type>javax.jms.Topic</res-type>
+      </resource-ref>
+      <persistence-unit-ref>
+        <persistence-unit-ref-name>myEntityManagerFactory</persistence-unit-ref-name>
+        <persistence-unit-name>chatPU</persistence-unit-name>
+      </persistence-unit-ref>
+    </session>
+  </enterprise-beans>
+</ejb-jar>

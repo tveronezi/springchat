@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>buildnplay</groupId>
+  <artifactId>springchat</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>war</packaging>
+  <name>springchat</name>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <tomcat.version>7.0.47</tomcat.version>
+    <spring.version>4.0.1.RELEASE</spring.version>
+    <spring.security.version>3.2.0.RELEASE</spring.security.version>
+    <jslint.version>2.0.5</jslint.version>
+
+    <tomee.version>1.6.0</tomee.version>
+    <tomee.config.dir>${project.basedir}/src/main/tomee/standalone/conf</tomee.config.dir>
+    <tomee.classifier>plus</tomee.classifier>
+
+  </properties>
+  <profiles>
+    <profile>
+      <id>node</id>
+      <properties>
+        <tomee.config.dir>${project.basedir}/src/main/tomee/network/conf</tomee.config.dir>
+        <tomee.classifier>webprofile</tomee.classifier>
+      </properties>
+    </profile>
+  </profiles>
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
+        <version>2.3</version>
+      </plugin>
+    </plugins>
+  </reporting>
+  <repositories>
+    <repository>
+      <id>jboss.releases</id>
+      <name>jboss releases</name>
+      <url>https://repository.jboss.org/nexus/content/repositories/releases</url>
+    </repository>
+    <repository>
+      <id>sonatype.oss.releases</id>
+      <name>Sonatype OSS Releases Repository</name>
+      <url>https://oss.sonatype.org/content/repositories/releases</url>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>sonatype.oss.releases</id>
+      <name>Sonatype OSS Releases Repository</name>
+      <url>https://oss.sonatype.org/content/repositories/releases</url>
+    </pluginRepository>
+  </pluginRepositories>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-framework-bom</artifactId>
+        <version>${spring.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.easymock</groupId>
+      <artifactId>easymock</artifactId>
+      <version>3.2</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- This is a Spring test. Set as test because TomEE already provides it. -->
+    <dependency>
+      <groupId>org.hsqldb</groupId>
+      <artifactId>hsqldb</artifactId>
+      <version>2.3.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>4.3.0.Final</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-entitymanager</artifactId>
+      <version>4.3.0.Final</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- END: This is a Spring test. Set as test because TomEE already provides it. -->
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jms</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-orm</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-jpa</artifactId>
+      <version>1.4.1.RELEASE</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-websocket</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-web</artifactId>
+      <version>${spring.security.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-config</artifactId>
+      <version>${spring.security.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.codehaus.jackson</groupId>
+      <artifactId>jackson-mapper-asl</artifactId>
+      <version>1.9.13</version>
+      <scope>compile</scope>
+      <!-- Spring MVC needs it -->
+    </dependency>
+
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.1.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.tomcat</groupId>
+      <artifactId>tomcat-websocket-api</artifactId>
+      <version>${tomcat.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate.javax.persistence</groupId>
+      <artifactId>hibernate-jpa-2.0-api</artifactId>
+      <version>1.0.1.Final</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-jms_1.1_spec</artifactId>
+      <version>1.1</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>senchatouch</artifactId>
+      <version>2.3.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.2.4</version>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.googlecode.jslint4java</groupId>
+        <artifactId>jslint4java-maven-plugin</artifactId>
+        <version>2.0.3</version>
+        <configuration>
+          <failOnError>true</failOnError>
+          <options>
+            <vars>true</vars>
+            <predef>Ext,springchat,console,window</predef>
+            <indent>4</indent>
+          </options>
+          <sourceFolders>
+            <sourceFolder>${basedir}/src/main/webapp/app/js</sourceFolder>
+          </sourceFolders>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>compile</phase>
+            <goals>
+              <goal>lint</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>2.11</version>
+        <configuration>
+          <enableRulesSummary>false</enableRulesSummary>
+          <configLocation>src/main/config/checkstyle.xml</configLocation>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>compile</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>3.0.1</version>
+        <configuration>
+          <linkXRef>true</linkXRef>
+          <sourceEncoding>utf-8</sourceEncoding>
+          <targetJdk>1.6</targetJdk>
+          <rulesets>
+            <ruleset>${project.basedir}/src/main/config/pmd/project-empty.xml</ruleset>
+            <ruleset>rulesets/java/finalizers.xml</ruleset>
+            <ruleset>rulesets/java/imports.xml</ruleset>
+            <ruleset>rulesets/java/unusedcode.xml</ruleset>
+            <ruleset>${project.basedir}/src/main/config/pmd/project-controversial.xml</ruleset>
+            <ruleset>${project.basedir}/src/main/config/pmd/project-basic.xml</ruleset>
+            <ruleset>${project.basedir}/src/main/config/pmd/project-optimizations.xml</ruleset>
+          </rulesets>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>compile</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.openejb.maven</groupId>
+        <artifactId>tomee-maven-plugin</artifactId>
+        <version>${tomee.version}</version>
+        <configuration>
+          <context>springchat</context>
+          <config>${tomee.config.dir}</config>
+          <args>-Xmx512m -XX:PermSize=256m</args>
+          <tomeeClassifier>plus</tomeeClassifier>
+          <debugPort>5006</debugPort>
+          <tomeeAjpPort>8010</tomeeAjpPort>
+          <tomeeHttpPort>8081</tomeeHttpPort>
+          <tomeeShutdownPort>8006</tomeeShutdownPort>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
