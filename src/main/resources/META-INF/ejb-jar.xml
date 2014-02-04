@@ -4,7 +4,7 @@
          version="3.1">
   <enterprise-beans>
     <session>
-      <ejb-name>ManagedBean</ejb-name>
+      <ejb-name>InjectionHolder</ejb-name>
       <ejb-class>springchat.ManagedBean</ejb-class>
       <session-type>Stateless</session-type>
       <init-on-startup>true</init-on-startup>
