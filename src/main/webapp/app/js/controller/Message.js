@@ -98,9 +98,9 @@
 
         scroll: function () {
             var me = this;
-            var list = me.getList()
+            var list = me.getList();
             var msg = list.el.query('.x-dataview-item:last-child');
-            if(!Ext.isEmpty(msg)) {
+            if (!Ext.isEmpty(msg)) {
                 msg[0].scrollIntoView(list);
             }
         },
