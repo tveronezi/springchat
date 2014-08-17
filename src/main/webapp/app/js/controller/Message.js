@@ -98,8 +98,11 @@
 
         scroll: function () {
             var me = this;
-            var scroller = me.getList().getScrollable().getScroller();
-            scroller.scrollTo(0, Number.MAX_VALUE);
+            var list = me.getList()
+            var msg = list.el.query('.x-dataview-item:last-child');
+            if(!Ext.isEmpty(msg)) {
+                msg[0].scrollIntoView(list);
+            }
         },
 
         init: function () {

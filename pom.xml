@@ -24,12 +24,12 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-    <tomcat.version>7.0.47</tomcat.version>
+    <tomcat.version>7.0.55</tomcat.version>
     <spring.version>4.0.1.RELEASE</spring.version>
     <spring.security.version>3.2.0.RELEASE</spring.security.version>
     <jslint.version>2.0.5</jslint.version>
 
-    <tomee.version>1.6.0</tomee.version>
+    <tomee.version>1.7.0</tomee.version>
     <tomee.config.dir>${project.basedir}/src/main/tomee/standalone/conf</tomee.config.dir>
     <tomee.classifier>plus</tomee.classifier>
 
