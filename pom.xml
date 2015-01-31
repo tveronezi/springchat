@@ -29,7 +29,7 @@
     <spring.security.version>3.2.0.RELEASE</spring.security.version>
     <jslint.version>2.0.5</jslint.version>
 
-    <tomee.version>1.7.0</tomee.version>
+    <tomee.version>1.7.1</tomee.version>
     <tomee.config.dir>${project.basedir}/src/main/tomee/standalone/conf</tomee.config.dir>
     <tomee.classifier>plus</tomee.classifier>
 
@@ -52,25 +52,6 @@
       </plugin>
     </plugins>
   </reporting>
-  <repositories>
-    <repository>
-      <id>jboss.releases</id>
-      <name>jboss releases</name>
-      <url>https://repository.jboss.org/nexus/content/repositories/releases</url>
-    </repository>
-    <repository>
-      <id>sonatype.oss.releases</id>
-      <name>Sonatype OSS Releases Repository</name>
-      <url>https://oss.sonatype.org/content/repositories/releases</url>
-    </repository>
-  </repositories>
-  <pluginRepositories>
-    <pluginRepository>
-      <id>sonatype.oss.releases</id>
-      <name>Sonatype OSS Releases Repository</name>
-      <url>https://oss.sonatype.org/content/repositories/releases</url>
-    </pluginRepository>
-  </pluginRepositories>
   <dependencyManagement>
     <dependencies>
       <dependency>
