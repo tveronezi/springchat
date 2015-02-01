@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -42,6 +43,11 @@ public class ConnectionsServiceImpl implements ConnectionsService {
     @Override
     public void removeSession(WebSocketSession session) {
         sessions.remove(session);
+    }
+
+    @Scheduled(fixedDelay = 20000)
+    public void pingClients() {
+        sendToAll("ping", "ping from server");
     }
 
     @Override
